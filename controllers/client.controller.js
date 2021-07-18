@@ -47,9 +47,33 @@ async function deleteClient(req, res, next) {
   }
 }
 
+async function updateClient(req, res, next) {
+  try {
+    let client = req.body;
+    if (
+      !client.client_id ||
+      !client.name ||
+      !client.cpf ||
+      !client.phone ||
+      !client.email ||
+      !client.address
+    ) {
+      throw new Error(
+        'Client ID, Name, CPF, Phone, Email e Address são obrigatórios.'
+      );
+    }
+    client = await ClientService.updateClient(client);
+    res.send(client);
+    logger.info(`PUT /client - ${JSON.stringify(client)}`);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export default {
   createClient,
   getClients,
   getClient,
   deleteClient,
+  updateClient,
 };
