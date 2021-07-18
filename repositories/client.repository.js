@@ -14,7 +14,49 @@ async function insertClient(client) {
     ];
 
     const res = await conn.query(sql, values);
+    return res.rows[0];
+  } catch (err) {
+    throw err;
+  } finally {
+    conn.release();
+  }
+}
+
+async function getClients() {
+  const conn = await connect();
+  try {
+    const res = await conn.query('SELECT * FROM clients');
     return res.rows;
+  } catch (err) {
+    throw err;
+  } finally {
+    conn.release();
+  }
+}
+
+async function getClient() {
+  const conn = await connect();
+  try {
+  } catch (err) {
+    throw err;
+  } finally {
+    conn.release();
+  }
+}
+
+async function updateClient() {
+  const conn = await connect();
+  try {
+  } catch (err) {
+    throw err;
+  } finally {
+    conn.release();
+  }
+}
+
+async function deleteClient() {
+  const conn = await connect();
+  try {
   } catch (err) {
     throw err;
   } finally {
@@ -24,4 +66,8 @@ async function insertClient(client) {
 
 export default {
   insertClient,
+  getClient,
+  getClients,
+  updateClient,
+  deleteClient,
 };
