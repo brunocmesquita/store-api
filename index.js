@@ -17,7 +17,7 @@ global.logger = winston.createLogger({
     new winston.transports.Console(),
     new winston.transports.File({ filename: 'store-api.log' }),
   ],
-  format: combine(laBel({ label: 'store-api' }), timestamp(), myFormat),
+  format: combine(label({ label: 'store-api' }), timestamp(), myFormat),
 });
 
 const app = express();
@@ -29,7 +29,10 @@ app.use('/client', clientsRouter);
 app.use('/product', productsRouter);
 app.use('/supplier', suppliersRouter);
 app.use('/sale', salesRouter);
-
+app.use((err, req, res, next) => {
+  logger.error(`${req.method} ${req.baseUrl} - ${err.message}`);
+  res.status(400).send({ err: err.message });
+});
 app.listen(3000, () => {
   console.log('App listening on port 3000!');
 });
