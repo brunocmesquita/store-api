@@ -10,7 +10,7 @@ async function createSupplier(req, res, next) {
       !supplier.email ||
       !supplier.address
     ) {
-      throw new Error('Name, CPF, Phone, Email and Address are required');
+      throw new Error('Name, CNPJ, Phone, Email and Address are required');
     }
     res.send(await SupplierService.createSupplier(supplier));
     logger.info(`POST /supplier - ${JSON.stringify(supplier)}`);
@@ -59,7 +59,7 @@ async function updateSupplier(req, res, next) {
       !supplier.address
     ) {
       throw new Error(
-        'Supplier ID, Name, CPF, Phone, Email e Address são obrigatórios.'
+        'Supplier ID, Name, CNPJ, Phone, Email e Address são obrigatórios.'
       );
     }
     supplier = await SupplierService.updateSupplier(supplier);
